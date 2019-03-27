@@ -1,4 +1,4 @@
-# Weeemake Library V1.0
+# Weeemake Arduino Libraries V1.0
 Arduino Library for WeeeMake Electronic Modules
 
 How to use:
@@ -13,7 +13,9 @@ Click "File-> Examples". Here are some test programs in "WeeeMakeDrive->"
 
 Depending on the type of board you're using, you need to modify the header file to match. For example, if you're using an ELF. You should use header file WeELF328P.h. Corresponding boards and there header file are:
 
-ELF <--------> WeELF328P.h
+ELF 328P<--------> WeELF328P.h
+
+ELF 2560<--------> WeELF328P.h
 
 ELF MINI <----> WeELFMini.h
 
