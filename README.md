@@ -15,7 +15,7 @@ Depending on the type of board you're using, you need to modify the header file 
 
 ELF 328P<--------> WeELF328P.h
 
-ELF 2560<--------> WeELF328P.h
+ELF 2560<--------> WeELF2560.h
 
 ELF MINI <----> WeELFMini.h
 
