@@ -1,4 +1,4 @@
-#include "WeELFMini.h"
+#include "WeELF328P.h"
 
 WeBuzzer buzzer(OnBoard_Buzzer);
 

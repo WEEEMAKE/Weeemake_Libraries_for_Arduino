@@ -13,7 +13,7 @@ void loop()
 {
   oled.showString(0,0,s);
   oled.showNum(0,2,123);
-  oled.showChar(0,4,0xff);  
+  oled.show8dot(0,4,0xff);  
   delay(1000);
 }
 

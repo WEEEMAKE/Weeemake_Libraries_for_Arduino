@@ -38,7 +38,12 @@ void WeOLED::fullScreen(void)
   delayMicroseconds(3000);
 }
 
-void WeOLED::showString(uint8_t X_position,uint8_t Y_position,char *str)
+void WeOLED::showString(uint8_t X_position, uint8_t Y_position, String str)
+{
+	showString(X_position, Y_position, str.c_str());
+}
+
+void WeOLED::showString(uint8_t X_position,uint8_t Y_position,const char *str)
 {
 	uint8_t number_of_Str;
 	if(_WeOLED.reset()!=0)
@@ -154,16 +159,3 @@ void WeOLED::showNum(uint8_t X_position,uint8_t Y_position,double Num)
 		}
 }
 
-void WeOLED::showChineseCharacters(uint8_t X_position,uint8_t Y_position,uint8_t (*zh_str)[16], uint8_t no)
-{
-	for (uint8_t i = 0; i < 16; ++i)
-	{
-		show8dot(X_position+i,Y_position,zh_str[2*no][i]);
-		show8dot(X_position+i,Y_position+1,zh_str[2*no+1][i]);
-	}
-}
-
-void WeOLED::showBMP(uint8_t X_position,uint8_t Y_position,uint8_t p[])
-{	
-	 
-}

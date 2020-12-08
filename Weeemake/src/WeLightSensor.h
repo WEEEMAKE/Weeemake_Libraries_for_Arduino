@@ -7,14 +7,24 @@
 class WeLightSensor
 {
 public:
-
-  WeLightSensor(uint8_t port=0);
-
-  int16_t read(void);
+	WeLightSensor(uint8_t port=0);
+	int16_t read(void);
   
- private:
+private:
 	uint8_t _Sensorpin;
+};
 
+class WeLightSensor_RJ
+{
+public:
+  WeLightSensor_RJ(uint8_t port=0);
+  void reset(uint8_t port=0);
+
+  uint16_t read(void);
+
+private:
+	WeOneWire _WeLightSensor_RJ;
+    //volatile uint8_t  _Sensor;
 };
 
 #endif

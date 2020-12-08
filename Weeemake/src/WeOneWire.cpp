@@ -58,12 +58,12 @@ void WeOneWire::write_bit(uint8_t value)
   noInterrupts();
   digitalWrite(WePIN,LOW);
   pinMode(WePIN,OUTPUT);
-  delayMicroseconds(5);
+  delayMicroseconds(7);
   digitalWrite(WePIN, value);
   interrupts();
   delayMicroseconds(30);
   digitalWrite(WePIN,HIGH);
-  delayMicroseconds(5);
+  delayMicroseconds(8);
 }
 
 void WeOneWire::write_byte(uint8_t v)
@@ -83,7 +83,7 @@ uint8_t WeOneWire::read_bit(void)
   while(WeDIRECT_READ(reg, mask) == 1 && (millis() - time) <= 3);
 
   noInterrupts();
-  delayMicroseconds(30);
+  delayMicroseconds(35);
   uint8_t r = WeDIRECT_READ(reg, mask);
   interrupts();
   delayMicroseconds(40);
@@ -117,6 +117,25 @@ bool WeOneWire::recv(uint8_t id, uint8_t dataLen, byte* data)
   if(reset())return false;
   write_byte(id);
   if(respond())return false;
+  for(int i=0; i<dataLen; ++i)
+    data[i] = read_byte();
+  return true;
+}
+
+bool WeOneWire::write(uint8_t id, uint8_t dataLen, byte* data, long time, uint8_t writeDataLen, byte* writeData)
+{
+  if(reset())return false;
+  write_byte(id);
+  if(writeDataLen > 0){
+    if(reset())return false;
+    for(int i=0; i<writeDataLen; ++i)
+      write_byte(writeData[i]);
+  }
+  if(dataLen == 0)return true;
+  unsigned long timestamp = millis() + time;
+  while(respond())
+    if(millis() >= timestamp)
+      return false;
   for(int i=0; i<dataLen; ++i)
     data[i] = read_byte();
   return true;

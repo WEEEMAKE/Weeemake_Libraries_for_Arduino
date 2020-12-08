@@ -9,6 +9,11 @@ void WeRGBLED_RJ::reset(uint8_t port)
   _WeRGBLED_RJ.reset(port);
 }
 
+void WeRGBLED_RJ::setColor(uint8_t index,uint32_t color)
+{
+	setColor(index, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
+}
+
 
 void WeRGBLED_RJ::setColor(uint8_t index,uint8_t red, uint8_t green, uint8_t blue)
 {
@@ -41,20 +46,6 @@ void WeRGBLED_RJ::RGBShow(void)
   {
      _WeRGBLED_RJ.write_byte(_5RGB_data[i]); 
   }
-}
-
-void WeRGBLED_RJ::setColor_j(uint8_t index,uint8_t red, uint8_t green, uint8_t blue)
-{
-	if (_WeRGBLED_RJ.reset()!=0)
-   	return;
-	_WeRGBLED_RJ.write_byte(0x03);
-	if (_WeRGBLED_RJ.reset()!=0)
-   	return;
-
-    _WeRGBLED_RJ.write_byte(index); 
-	_WeRGBLED_RJ.write_byte(red); 
-	_WeRGBLED_RJ.write_byte(green); 
-	_WeRGBLED_RJ.write_byte(blue); 
 }
 
 

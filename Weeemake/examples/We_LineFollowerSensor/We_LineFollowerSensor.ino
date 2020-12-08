@@ -1,11 +1,10 @@
 #include "WeELF328P.h"
-// #include "WeELFMini.h"
 
 WeLineFollower lineFollower(PORT_A);
 
 void setup()
 {  
-  Serial.begin(115200);
+  Serial.begin(9600);
 }
 void loop() 
 {

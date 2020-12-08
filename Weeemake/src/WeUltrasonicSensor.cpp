@@ -41,6 +41,10 @@ void WeUltrasonicSensor::setColor2(uint8_t red, uint8_t green, uint8_t blue)
   _RGB2_data[2]=blue;
   RGBShow();
 }
+void WeUltrasonicSensor::setColor(uint8_t index,uint32_t color)
+{
+  setColor(index, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
+}
 void WeUltrasonicSensor::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue)
 {
   if(index & 1){

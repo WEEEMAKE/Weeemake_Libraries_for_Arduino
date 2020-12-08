@@ -1,5 +1,5 @@
 #include "WeELF328P.h"
-WeRGBLed led(PORT_6);
+WeRGBLed led(OnBoard_RGB);
 
 int16_t bri = 0, st = 0;
 void setup() 
@@ -29,7 +29,7 @@ void color_loop()   //White Breath Light
     bri++;
   }
   
-   led.setColor(0, bri, bri, bri);  // led number, red, green, blue,
+   led.setColorAt(0, bri, bri, bri);  // led number, red, green, blue,
    led.show();
    delay(50);   
 }

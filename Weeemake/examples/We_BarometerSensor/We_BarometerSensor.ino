@@ -5,11 +5,10 @@ float Height,Pressure,Temp;
 void setup()
 {  
   Serial.begin(9600);
-  barometer.setOrigin();
 }
 void loop() 
 {
-  Height=barometer.readRelativeHeight();
+  Height=barometer.readHeight();
   Pressure=barometer.readPressure();
   Temp=barometer.readTemp();
   

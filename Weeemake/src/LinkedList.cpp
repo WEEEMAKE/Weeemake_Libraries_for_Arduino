@@ -81,10 +81,20 @@ uint16_t LinkedList::getLength()
 
 bool LinkedList::include(float value)
 {
+	return indexOf(value) >= 0;
+}
+
+void LinkedList::clear()
+{
+	length = 0;
+}
+
+int LinkedList::indexOf(float value)
+{
 	for(uint16_t i=0; i<length; ++i){
 		if(buffer[i] == value){
-			return true;
+			return i;
 		}
 	}
-	return false;
+	return -1;
 }

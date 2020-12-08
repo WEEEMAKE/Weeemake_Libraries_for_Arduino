@@ -24,6 +24,7 @@ public:
    bool send(uint8_t id);
    bool send(uint8_t id, uint8_t dataLen, byte* data);
    bool recv(uint8_t id, uint8_t dataLen, byte* data);
+   bool write(uint8_t id, uint8_t dataLen, byte* data, long time=0, uint8_t writeDataLen=0, byte* writeData=0);
 
 private:
   uint8_t read_bit(void);

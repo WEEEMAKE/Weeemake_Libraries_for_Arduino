@@ -16,6 +16,7 @@ public:
   void moveTo(uint8_t speed,long position);
   void move(uint8_t speed,long position);
   void runSpeed(int16_t speed);
+  void runSpeed_188(int16_t speed);
   void setAccurary(uint8_t num);
   
 private:

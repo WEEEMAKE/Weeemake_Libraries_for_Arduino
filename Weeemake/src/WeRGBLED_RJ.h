@@ -14,9 +14,9 @@ public:
   void reset(uint8_t port=0);
 
   void setColor(uint8_t index,uint8_t red, uint8_t green, uint8_t blue);
+  void setColor(uint8_t index,uint32_t color);
   void RGBShow(void);
   void show();
-  void setColor_j(uint8_t index,uint8_t red, uint8_t green, uint8_t blue);
 
   
 private:

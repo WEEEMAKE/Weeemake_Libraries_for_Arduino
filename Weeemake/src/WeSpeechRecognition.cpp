@@ -11,10 +11,10 @@ void WeSpeechRecognition::reset(uint8_t port)
 	_WeSpeechRecognition.reset(port);
 }
 
-//void WeSpeechRecognition::setKeyword(String str)
-//{
-//	setKeyword(str.c_str());
-//}
+void WeSpeechRecognition::setKeyword(String str)
+{
+	setKeyword(str.c_str());
+}
 
 void WeSpeechRecognition::setKeyword(const char *str)
 {
@@ -30,6 +30,11 @@ void WeSpeechRecognition::setKeyword(const char *str)
 	}
 	_WeSpeechRecognition.write_byte(0x00);	
 	delay(10);
+}
+
+void WeSpeechRecognition::setPassword(int8_t num,String str)
+{
+	setPassword(num, str.c_str());
 }
 
 void WeSpeechRecognition::setPassword(int8_t num,const char *str)
@@ -69,15 +74,6 @@ void WeSpeechRecognition::setTriggerMode(uint8_t mode)
     delay(10);
 }
 
-void WeSpeechRecognition::setResponseRate(uint8_t rate)
-{
-	if(_WeSpeechRecognition.reset()!=0) 
-		return  ;
-   _WeSpeechRecognition.write_byte(0x05);
-    if(_WeSpeechRecognition.reset()!=0) return ;
-	_WeSpeechRecognition.write_byte(rate);
-   delay(10);
-}
 
 void WeSpeechRecognition::beginTrigger(void)  //trigger mode
 {

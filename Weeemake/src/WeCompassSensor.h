@@ -10,16 +10,20 @@ public:
   WeCompassSensor(uint8_t port=0);
   void reset(uint8_t port=0);
   void update(void);
-  uint16_t getHeadX(void);
-  uint16_t getHeadY(void);
-  uint16_t getHeadZ(void);
-  uint16_t readValue(uint8_t index);
-  
- 
+  int16_t getHeadS(void);
+  int16_t getHeadX(void);
+  int16_t getHeadY(void);
+  int16_t getHeadZ(void);
+  int16_t getIntensityX(void);
+  int16_t getIntensityY(void);
+  int16_t getIntensityZ(void);
+
+  int16_t readValue(uint8_t index);
   
 private:
 	WeOneWire _WeCompassSensor;
-    uint16_t  head_X=0, head_Y=0, head_Z=0;
+    int  head_X=0, head_Y=0, head_Z=0;
+	int  head_S=0;
     uint8_t i2cData[6];
 };
 

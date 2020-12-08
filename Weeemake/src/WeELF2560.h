@@ -49,7 +49,15 @@
 #include "WeUVSensor.h"
 #include "WeWaterSensor.h"
 #include "WeUSBHost.h"
-
+#include "WeGestureSensor.h"
+#include "WeImageRecognition.h"
+#include "WeSpeechRecognition.h"
+#include "WeVibrationMotor.h"
+#include "WeBluetoothController.h"
+#include "WeAdapter.h"
+#include "WeWifi.h"
+#include "WeServo360.h"
+#include "WeSmartIRModule.h"
 
 #define PORT_0  (13)
 #define PORT_1  (A0)

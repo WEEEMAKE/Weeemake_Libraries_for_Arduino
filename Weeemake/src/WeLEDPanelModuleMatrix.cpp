@@ -128,6 +128,14 @@ void WeLEDPanelModuleMatrix::showLine(uint8_t x,uint8_t buffer)
  // Display_Buffer[x]=buffer;
 //  delayMicroseconds(1000);
 }
+void WeLEDPanelModuleMatrix::setDot(uint8_t x,uint8_t y,bool isOn)
+{
+  if(isOn){
+    turnOnDot(x, y);
+  }else{
+    turnOffDot(x, y);
+  }
+}
 void WeLEDPanelModuleMatrix::turnOnDot(uint8_t x,uint8_t y)
 { 
    if(x>(panel_width-1)||y>(panel_height-1))

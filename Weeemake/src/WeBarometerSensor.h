@@ -13,8 +13,6 @@ public:
   float readHeight(void);
   float readPressure(void);
   float readTemp(void);
-  float readRelativeHeight(void);
-  void setOrigin(void);
   
  private:
  	WeOneWire _WeBarometerSensor;

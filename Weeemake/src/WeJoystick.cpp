@@ -17,11 +17,10 @@ void WeJoystick::readData(void)
     return ;
   _WeJoystick.write_byte(0x02);
   _WeJoystick.respond();
-  _Sensor1=_WeJoystick.read_byte();
+  _Sensor1=255-_WeJoystick.read_byte();
   _Sensor2=_WeJoystick.read_byte();
   _Sensor3=_WeJoystick.read_byte();
 
-  _Sensor1=map(_Sensor1,0,255,255,0);
 }
 
 uint8_t WeJoystick::showX(void)

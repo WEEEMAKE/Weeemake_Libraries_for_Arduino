@@ -1,6 +1,6 @@
 #include "WeELF328P.h"
 
-WeStepperMotor stepperMotor(PORT_3);
+WeStepperMotor stepperMotor(PORT_6);
 void setup()
 {  
   stepperMotor.setMicroStep(8);  //1,2,4,8,16,32

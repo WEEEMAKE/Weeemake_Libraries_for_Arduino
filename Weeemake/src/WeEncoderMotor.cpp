@@ -28,7 +28,7 @@ void WeEncoderMotor::run(int16_t speed)
     return;
   }
   
-  if(speed >= 0)
+  if(speed >= -2)
   {
      _EncoderMotor.reset();
 	 _EncoderMotor.write_byte(0x02);
@@ -74,7 +74,7 @@ void WeEncoderMotor:: stop(void)
      _EncoderMotor.reset();
      _EncoderMotor.write_byte(motor_flag);
      _EncoderMotor.write_byte(0);
-     last_speed = 300;
+	 last_speed = 300;
 }
 void WeEncoderMotor:: moveTo(uint8_t speed,long position)
 {  
@@ -87,8 +87,7 @@ void WeEncoderMotor:: moveTo(uint8_t speed,long position)
 	  _EncoderMotor.write_byte((uint8_t)(position>>16));
 	  _EncoderMotor.write_byte((uint8_t)(position>>24));
        delayMicroseconds(500);
-        last_speed = 300;
-    
+      last_speed = 300;
 }
 void WeEncoderMotor:: move(uint8_t speed,long position)
 {
@@ -102,30 +101,38 @@ void WeEncoderMotor:: move(uint8_t speed,long position)
 	  _EncoderMotor.write_byte((uint8_t)(position>>16));
 	  _EncoderMotor.write_byte((uint8_t)(position>>24));
        delayMicroseconds(500);
-        last_speed = 300;
+	   last_speed = 300;
 }
 
-/* speed unit RPM */
-void WeEncoderMotor:: runSpeed(int16_t speed)
+void WeEncoderMotor:: runSpeed(int16_t speed)    //50ms脉冲数
 {
-	//rpm -> pulse/50ms
-	speed = int16_t(speed * 0.45);
-	if(last_speed == speed){
-		return;
+     
+	if(last_speed == speed)
+	{
+	    return;
 	}
-	if (speed == 0){
+	
+     if (speed==0)
+     {
 		run(0);
 		return;
 	}
 	last_speed = speed;
 
-	_EncoderMotor.reset();
-	_EncoderMotor.write_byte(0x07);
-	_EncoderMotor.reset();
-	_EncoderMotor.write_byte((uint8_t)speed);
-	_EncoderMotor.write_byte((uint8_t)(speed>>8));
+	  _EncoderMotor.reset();
+	  _EncoderMotor.write_byte(0x07);
+	  _EncoderMotor.reset();
+       _EncoderMotor.write_byte((uint8_t)speed);
+	  _EncoderMotor.write_byte((uint8_t)(speed>>8));
 
 }
+
+void WeEncoderMotor:: runSpeed_188(int16_t speed)    //转/分  输出轴
+{	
+    speed=speed*49/100;   //45*13/60/20=0.49
+    runSpeed(speed); 
+}
+
 void WeEncoderMotor::setAccurary(uint8_t num)   //>=1
 {
 	_EncoderMotor.reset();

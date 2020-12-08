@@ -103,11 +103,11 @@ void  WeGyroSensor::update(void)
 
 double  WeGyroSensor::getAngleX(void)
 {
-  return gx;
+  return gy;
 }
 double  WeGyroSensor::getAngleY(void)
 {
-  return gy;
+  return -gx;
 }
 double  WeGyroSensor::getAngleZ(void)
 {
@@ -131,8 +131,8 @@ double WeGyroSensor::readValue(uint8_t index)
 {
   update();
   switch(index){
-    case 0: return gx;
-    case 1: return gy;
+    case 0: return getAngleX();
+    case 1: return getAngleY();
     case 2: return gz;
     case 3: return gyrX;
     case 4: return gyrY;

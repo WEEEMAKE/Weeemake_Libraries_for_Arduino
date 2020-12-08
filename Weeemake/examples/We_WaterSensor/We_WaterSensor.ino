@@ -1,14 +1,14 @@
 #include "WeELF328P.h"
 
-WeWaterSensor water_sensor(PORT_A);
+WeWaterSensor waterSensor(PORT_A);
 
 void setup()
-{
-	Serial.begin(9600);
+{  
+  Serial.begin(9600);
 }
-
-void loop()
+void loop() 
 {
-	Serial.println(water_sensor.readAnalog());
-	delay(100);
+  Serial.print("Analog Value is: ");
+  Serial.println(waterSensor.readAnalog()); 
+  delay(100);
 }
