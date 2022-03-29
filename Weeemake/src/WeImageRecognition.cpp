@@ -75,7 +75,7 @@ bool WeImageRecognition::getColorPosition(uint8_t num)
 	pixels=(uartData[4]<<8)|uartData[5];
 	if(centerX>320) return 0;
 	if(centerY>240) return 0;
-	//delay(10);
+	delay(10);
 	return 1;
 }
 
@@ -182,7 +182,7 @@ bool WeImageRecognition::getAppColorPosition(uint8_t num)
 	pixels=(uartData[4]<<8)|uartData[5];
 	if(centerX>320) return 0;
 	if(centerY>240) return 0;
-	//delay(10);
+	delay(10);
 	return 1;
 }
 
@@ -269,7 +269,7 @@ bool WeImageRecognition::getColorAllPosition(uint8_t num)
 	rotation=uartData[14];
 	density=(float)pixels/(float)(width*high);
 
-	//delay(10);
+	delay(10);
 	return 1;
 }
 
@@ -298,7 +298,7 @@ bool WeImageRecognition::getAppColorAllPosition(uint8_t num)
 	high=(uartData[12]<<8)|uartData[13];
 	rotation=uartData[14];
 	density=(float)pixels/(float)(width*high);
-	//delay(10);
+	delay(10);
 	return 1;
 }
 
@@ -338,6 +338,70 @@ void WeImageRecognition::fastMode(bool mode)
 	if(_WeImageRecognition.reset()!=0) 
 		return  ;
 	_WeImageRecognition.write_byte(mode);
+	delay(10);
+}
+
+bool WeImageRecognition::getQrcods(void)
+{
+	if(_WeImageRecognition.reset()!=0) 
+		return  0;
+    _WeImageRecognition.write_byte(0x12);
+	_WeImageRecognition.respond();
+	for(uint8_t i=0;i<20;i++)
+	{
+	   qrcode[i]=_WeImageRecognition.read_byte();
+	}
+	if (qrcode[0] == ' ') return 0;
+	return 1;
+}
+
+bool WeImageRecognition::getAprilTag(void)
+{
+	if(_WeImageRecognition.reset()!=0) 
+		return  0;
+    _WeImageRecognition.write_byte(0x13);
+	_WeImageRecognition.respond();
+	uartData[0]=_WeImageRecognition.read_byte();
+	if (uartData[0]==0xff) return 0;
+	for(uint8_t i=1;i<4;i++)
+	{
+	   uartData[i]=_WeImageRecognition.read_byte();
+	}
+	num=(uartData[0]<<8)|uartData[1];
+	angle=(uartData[2]<<8)|uartData[3];
+	return 1;
+}
+
+void WeImageRecognition::LEDMode(bool mode)
+{
+	if(_WeImageRecognition.reset()!=0) 
+		return  ;
+    _WeImageRecognition.write_byte(0x14);
+	if(_WeImageRecognition.reset()!=0) 
+		return  ;
+	_WeImageRecognition.write_byte(mode);
+}
+
+bool WeImageRecognition::get20Classes(void)
+{
+	if(_WeImageRecognition.reset()!=0) 
+		return  0;
+    _WeImageRecognition.write_byte(0x15);
+	_WeImageRecognition.respond();
+	num=_WeImageRecognition.read_byte();
+	if ((num==0)||(num>20)) return 0;
+	return 1;
+}
+
+bool WeImageRecognition::getTrafficClasses(void)
+{
+	if(_WeImageRecognition.reset()!=0) 
+		return  0;
+    _WeImageRecognition.write_byte(0x16);
+	_WeImageRecognition.respond();
+	num=_WeImageRecognition.read_byte();
+	if ((num==0)||(num>6)) return 0;
+	return 1;
 }
 
 uint8_t WeImageRecognition::getTrafficSigns(void)
@@ -395,9 +459,18 @@ void WeImageRecognition::setCardSignsMode(uint8_t num)  //num<=20
 	resetColorMode(num);
 	setLabColor4(10, 75, 25, 85, -20, 70);
 	setLabColor5(20, 95, -20, 36, -60, -15);
-	//setLabColor5(20, 50, -10, 36, -60, -20);
+	//setLabColor5(20, 60, -20, 36, -60, -15);
 	setPixelsThreshold(100);
 }
+
+void WeImageRecognition::setCardSignsMode2(void)  
+{
+	setLabColor4(10, 75, 25, 85, -20, 70);
+	setLabColor5(20, 80, -20, 36, -60, -15);
+	setPixelsThreshold(100);
+}
+
+
 uint8_t WeImageRecognition::getCardSigns1(void)
 {
 	uint16_t frame_size,red_X,red_Y;
@@ -424,7 +497,7 @@ uint8_t WeImageRecognition::getCardSigns1(void)
 
 						frame_size=high*width;
 				        density=(float)pixels/frame_size;
-			
+						//Serial.println(density);
 						if((density>0.45)&&(density<0.52)) return 1;   //Triangle
                         if((density>0.53)&&(density<0.61)) return 2;   //Cross
                         if((density>0.63)&&(density<0.7)) return 3;	   //Tick			
@@ -444,37 +517,3 @@ uint8_t WeImageRecognition::getCardSigns1(void)
 
 
 
-void WeImageRecognition::setMode(uint8_t mode)
-{
-	if(mode == 0){
-		setAutoTrackingMode();
-	}else{
-		setLineFollowerMode();
-	}
-}
-
-bool WeImageRecognition::updateMode(uint8_t mode)
-{
-	if(mode == 0){
-		return getAutoPosition();
-	}else{
-		return getLineFollowerAngle();
-	}
-}
-
-uint16_t WeImageRecognition::getValue(uint8_t type)
-{
-	if(type == 0){
-		return centerX;
-	}
-	if(type == 1){
-		return centerY;
-	}
-	if(type == 2){
-		return pixels;
-	}
-	if(type == 3){
-		return angle;
-	}
-	return 0;
-}

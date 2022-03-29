@@ -12,11 +12,12 @@ public:
   void reset(uint8_t port=0);
   void showNumber(float value);
   void showChar(uint8_t Addr, uint8_t Data);
+  void showString(const char *Str, uint8_t Addr=0);
 private:
   void sendNumber(void);
 private:
 	WeOneWire _We7SegmentDisplay;
-    volatile uint8_t  _number1;
+  volatile uint8_t  _number1;
 	volatile uint8_t  _number2;
 	volatile uint8_t  _number3;
 	volatile uint8_t  _number4;

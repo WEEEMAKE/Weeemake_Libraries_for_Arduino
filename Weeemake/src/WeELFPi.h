@@ -6,6 +6,7 @@
 #include "LinkedList.h"
 
 #include "WeDCMotor.h"
+
 #include "WeLineFollower.h"
 #include "WeUltrasonicSensor.h"
 #include "WeLEDPanelModuleMatrix.h"
@@ -52,6 +53,7 @@
 #include "WeAdapter.h"
 #include "WeServo360.h"
 #include "WeSmartIRModule.h"
+#include "We36EncoderMotor.h"
 
 #define PORT_1  (14)
 #define PORT_2  (15)
@@ -65,21 +67,21 @@
 
 #define OnBoard_Button        (21)
 
-#define M1      (0x03)
-#define M2      (0x04)
-#define M3      (0x05)
-#define M4      (0x06)
-#define M5      (0x07)
-#define M6      (0x08)
-#define M7      (0x09)
-#define M8      (0x10)
+#define M3      (0x03)
+#define M4      (0x04)
+#define M5      (0x05)
+#define M6      (0x06)
+#define M7      (0x07)
+#define M8      (0x08)
+#define M9      (0x09)
+#define M10      (0x10)
 
 
 WePort_TwoSig WetwoPort[12] =
 {
-    { NC, NC },{ NC, NC },{ NC, NC }, {PORT_1,2}, {PORT_1,1 },
-	{ PORT_2,2 }, {PORT_2, 1 }, { PORT_3, 2 }, { PORT_3, 1 }, { PORT_4,2}, 
-	{ PORT_4,1}, {  NC,  NC }
+    { NC, NC },{ NC, NC },{ NC, NC }, {PORT_1,1}, {PORT_1,2 },
+	{ PORT_2,1 }, {PORT_2, 2 }, { PORT_3, 1 }, { PORT_3, 2 }, { PORT_4,1}, 
+	{ PORT_4,2}, {  NC,  NC }
 };
 void setfastPWM()
 {

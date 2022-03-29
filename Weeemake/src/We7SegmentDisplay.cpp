@@ -7,7 +7,11 @@ We7SegmentDisplay::We7SegmentDisplay(uint8_t port)
 }
 void We7SegmentDisplay::reset(uint8_t port)
 {
+	#if defined(__LGT8FX8E__) || defined(__LGT8FX8P__)
+	  port = WetwoPort[port].s1;
+	#endif
 	_We7SegmentDisplay.reset(port);
+	
 	resetFlag = true;
 	last_number = 10000;
 }
@@ -192,5 +196,49 @@ void We7SegmentDisplay::showNumber(float value)
   sendNumber();
 }
 
+void We7SegmentDisplay::showString(const char *Str, uint8_t Addr)
+{
+	uint8_t buf[4] = {0};
+	for(int i=0; i<Addr; i++){
+	    buf[i] = 0x40;
+	}
 
+	uint8_t data;
+	for(int i=Addr; i<4; i++){
+		if (*Str){
+			if(*Str == '-'){
+				data = 0x10;
+			}
+			else if (*Str == ' ')
+			{
+				data = 0x40;
+			}
+			else{
+				data = *Str - '0';
+			}
+		}
+		else{
+			buf[i] = 0x40;
+			Str++;
+			continue;
+		}
+
+		if(*(Str+1) == '.'){
+		   data = data|0x20;
+		   buf[i] = data;
+		   Str+=2;
+		   continue;
+		}
+		else{
+		   buf[i] = data;
+		   Str++;
+		   continue;
+		}
+	}
+	_number1=buf[0];    
+	_number2=buf[1];
+	_number3=buf[2];
+	_number4=buf[3];
+	sendNumber();
+}
 

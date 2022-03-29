@@ -58,6 +58,7 @@
 #include "WeWifi.h"
 #include "WeServo360.h"
 #include "WeSmartIRModule.h"
+#include "We36EncoderMotor.h"
 
 #define PORT_A  (A5)
 #define PORT_B  (A4)

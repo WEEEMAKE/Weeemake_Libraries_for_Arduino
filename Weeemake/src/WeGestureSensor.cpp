@@ -18,7 +18,7 @@ uint8_t WeGestureSensor::read(void)
   _WeGestureSensor.write_byte(0x02);
   _WeGestureSensor.respond();
   _Sensor1=_WeGestureSensor.read_byte();
-
+  delay(10);
   return _Sensor1;
 }
 
@@ -35,6 +35,7 @@ void WeGestureSensor::position(void)
 	objectSize=_WeGestureSensor.read_byte();
     centerX=x_high<<4|x_low>>4;
 	centerY=y_high<<4|y_low>>4;
+	delay(10);
 }
 
 

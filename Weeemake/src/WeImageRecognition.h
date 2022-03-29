@@ -32,15 +32,18 @@ public:
    void fastMode(bool mode=1);
    uint8_t getTrafficSigns(void);
    void setCardSignsMode(uint8_t num=20);
+   void setCardSignsMode2(void);
    uint8_t getCardSigns1(void);
-
-   void setMode(uint8_t);
-   bool updateMode(uint8_t);
-   uint16_t getValue(uint8_t);
+   bool getQrcods(void);
+   bool getAprilTag(void);
+   void LEDMode(bool mode);
+   bool get20Classes(void);
+   bool getTrafficClasses(void);
    
-   int8_t  minL, maxL, minA, maxA, minB, maxB,angle;
-   uint16_t centerX,centerY,pixels,frameX,frameY,high,width,rotation;
+   int8_t  minL, maxL, minA, maxA, minB, maxB;
+   uint16_t centerX,centerY,pixels,frameX,frameY,high,width,rotation,num,angle;
    uint8_t linex1,linex2,linex3,linex4,linex5;
+   char qrcode[20]={0};
    float density;
  private:
 	WeOneWire _WeImageRecognition;
