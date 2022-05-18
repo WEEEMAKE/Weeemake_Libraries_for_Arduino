@@ -12,6 +12,7 @@ public:
   WeSpeechSynthesisModule(uint8_t port);
   void speek(uint8_t *data_in, uint8_t len);
   void playSound(uint8_t *data_in, uint8_t len, uint16_t t_ms);
+  void speekForFlash(uint8_t *data_in, uint8_t len);
 
 private:
   uint16_t _tx_delay;

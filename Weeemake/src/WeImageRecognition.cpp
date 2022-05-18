@@ -207,13 +207,13 @@ void WeImageRecognition::setLineFollowerThreshold(uint8_t min,uint8_t max)
 
 bool WeImageRecognition::getLineFollowerAngle(void)
 {
-	if(_WeImageRecognition.reset()!=0) 
+	if(_WeImageRecognition.reset()!=0)
 			return	0;
 	_WeImageRecognition.write_byte(0x0f);
 	_WeImageRecognition.respond();
-	angle=_WeImageRecognition.read_byte();
-	if (angle==125) return 0;
-	//delay(10);
+	angle=(int)_WeImageRecognition.read_byte()-90;
+	// if (angle==125) return 0;
+	// //delay(10);
 	return 1;
 
 }
@@ -363,12 +363,16 @@ bool WeImageRecognition::getAprilTag(void)
 	_WeImageRecognition.respond();
 	uartData[0]=_WeImageRecognition.read_byte();
 	if (uartData[0]==0xff) return 0;
-	for(uint8_t i=1;i<4;i++)
+	for(uint8_t i=1;i<8;i++)
 	{
 	   uartData[i]=_WeImageRecognition.read_byte();
 	}
 	num=(uartData[0]<<8)|uartData[1];
 	angle=(uartData[2]<<8)|uartData[3];
+	centerX=uartData[4];
+	centerY=uartData[5];
+	width=uartData[6];
+	high=uartData[7];
 	return 1;
 }
 

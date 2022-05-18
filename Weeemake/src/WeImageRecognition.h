@@ -40,8 +40,9 @@ public:
    bool get20Classes(void);
    bool getTrafficClasses(void);
    
+   int angle;
    int8_t  minL, maxL, minA, maxA, minB, maxB;
-   uint16_t centerX,centerY,pixels,frameX,frameY,high,width,rotation,num,angle;
+   uint16_t centerX,centerY,pixels,frameX,frameY,high,width,rotation,num;
    uint8_t linex1,linex2,linex3,linex4,linex5;
    char qrcode[20]={0};
    float density;
