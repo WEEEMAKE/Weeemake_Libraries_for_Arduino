@@ -18,7 +18,7 @@ void WeServo::write(uint8_t angle)
  if(angle>180) angle=180;
  noInterrupts();
  for(int i=0;i<50;i++){
-    int pulsewidth = (angle * 11.5) + 450; //将角度转化为500-2480的脉宽值
+    int pulsewidth = (angle * 11) + 500; //将角度转化为500-2480的脉宽值
     //if(_IRflag==1) pulsewidth = (angle * 8) + 400;		
     digitalWrite(_Servopin, HIGH);   //将舵机接口电平至高
     delayMicroseconds(pulsewidth);  //延时脉宽值的微秒数

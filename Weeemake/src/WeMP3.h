@@ -12,7 +12,7 @@ public:
   void reset(uint8_t port=0);
   
   void appointMusic(uint16_t num); 
-  void appointVolume(uint8_t num); // 0~22
+  void appointVolume(uint8_t num); //0-30
   void nextMusic(void);
   void pause(void);
   void play(void);

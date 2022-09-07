@@ -7,8 +7,7 @@ WeSpeechSynthesisModule::WeSpeechSynthesisModule(uint8_t port)
   begin(9600);
 }
 
-// 语音合成
-void WeSpeechSynthesisModule::speek(uint8_t *data_in, uint8_t len)
+void WeSpeechSynthesisModule::beginSpeek(uint8_t len)
 {
   write(0xFD);   // 帧头
   write(((len+2)>>8) & 0xff);   // 数据长度
@@ -16,7 +15,12 @@ void WeSpeechSynthesisModule::speek(uint8_t *data_in, uint8_t len)
 
   write(0x01);    // 命令字
   write(0x01);    // 命令参数
+}
 
+// 语音合成
+void WeSpeechSynthesisModule::speek(uint8_t *data_in, uint8_t len)
+{
+  beginSpeek(len);
   for(int i=0; i<len; i++){   // 文本标记+文字字符串GBK
     write(data_in[i]);
   }
@@ -25,17 +29,12 @@ void WeSpeechSynthesisModule::speek(uint8_t *data_in, uint8_t len)
 // 语音合成 数据来自Flash
 void WeSpeechSynthesisModule::speekForFlash(uint8_t *data_in, uint8_t len)
 {
-  write(0xFD);   // 帧头
-  write(((len+2)>>8) & 0xff);   // 数据长度
-  write((len+2) & 0xff);        //
-
-  write(0x01);    // 命令字
-  write(0x01);    // 命令参数
-
+  beginSpeek(len);
   for(int i=0; i<len; i++){   // 文本标记+文字字符串GBK
     write(pgm_read_byte(&data_in[i]));
   }
 }
+
 
 // 播放提示音
 void WeSpeechSynthesisModule::playSound(uint8_t *data_in, uint8_t len, uint16_t t_ms)

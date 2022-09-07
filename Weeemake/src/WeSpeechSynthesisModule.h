@@ -24,6 +24,7 @@ private:
   virtual size_t write(uint8_t byte);
   static uint16_t subtract_cap(uint16_t num, uint16_t sub);
   static inline void tunedDelay(uint16_t delay);
+  void beginSpeek(uint8_t len);
 };
 
 #endif

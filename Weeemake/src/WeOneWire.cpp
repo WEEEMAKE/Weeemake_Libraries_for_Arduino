@@ -42,7 +42,7 @@ uint8_t WeOneWire::respond(void)
   WeDIRECT_MODE_INPUT(reg, mask);
   while(WeDIRECT_READ(reg, mask)==1)
   {
-  	if((millis()-time)>100)
+  	if((millis()-time)>150)
 	return 1;
   }
   while(WeDIRECT_READ(reg, mask)==0);
@@ -58,12 +58,12 @@ void WeOneWire::write_bit(uint8_t value)
   noInterrupts();
   digitalWrite(WePIN,LOW);
   pinMode(WePIN,OUTPUT);
-  delayMicroseconds(7);
+  delayMicroseconds(5);
   digitalWrite(WePIN, value);
   interrupts();
-  delayMicroseconds(30);
+  delayMicroseconds(35);
   digitalWrite(WePIN,HIGH);
-  delayMicroseconds(8);
+  delayMicroseconds(5);
 }
 
 void WeOneWire::write_byte(uint8_t v)
@@ -83,7 +83,7 @@ uint8_t WeOneWire::read_bit(void)
   while(WeDIRECT_READ(reg, mask) == 1 && (millis() - time) <= 3);
 
   noInterrupts();
-  delayMicroseconds(35);
+  delayMicroseconds(34);
   uint8_t r = WeDIRECT_READ(reg, mask);
   interrupts();
   delayMicroseconds(40);
